@@ -1,3 +1,5 @@
+// Синтезаторы
+
 var sineSynthLeft = new Tone.Synth({
     'oscillator': {
         'type': 'sine'
@@ -70,8 +72,9 @@ var squareSynthRight = new Tone.Synth({
     }
 });
 
-// PATTERNS
+// Паттерны
 
+// Басс
 var bassPattern1 = new Tone.Pattern(function (time, note) {
     sineSynthLeft.triggerAttackRelease(note, '1n', time);
 }, ['C#2', 'E2', 'G#2', 'B2']);
@@ -80,6 +83,7 @@ var bassPattern2 = new Tone.Pattern(function (time, note) {
     squareSynthRight.triggerAttackRelease(note, '1n', time);
 }, ['C#2', 'E2', 'G#2', 'B2']);
 
+// Средние аккорды
 var middleChords1 = new Tone.Pattern(function (time, note) {
     triangleSynthLeft.triggerAttackRelease(note, '1n', time);
 }, ['E3', 'G#3', 'A3', 'B3']);
@@ -88,7 +92,7 @@ var middleChords2 = new Tone.Pattern(function (time, note) {
     sineSynthRight.triggerAttackRelease(note, '1n', time);
 }, ['E4', 'G#4', 'A4', 'B4']);
 
-// NO BUTTER NOTES (not much at least)
+// Мелодия
 var color1 = new Tone.Pattern(function (time, note) {
     triangleSynthRight.triggerAttackRelease(note, '1n', time);
 }, ['G#4', 'D#4', 'F#4', 'A4', 'D#5', 'F#5', 'A5']);
@@ -148,7 +152,6 @@ var masterVolume = new Tone.Volume(-12);
 comp.connect(masterVolume);
 masterVolume.toMaster();
 
-// original bpm: 63, in 6/8 timing
 Tone.Transport.bpm.value = 10;
 Tone.Transport.start();
 
