@@ -1,3 +1,10 @@
+function randomChoice(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+};
+
+var e = randomChoice(['minor','major']);
+var start_note = randomChoice(['C', 'E', 'F', 'D', 'G#', 'C#', 'E#', 'F#', 'D#', 'G#']);
+console.log(e, start_note);
 // Синтезаторы
 
 var sineSynthLeft = new Tone.Synth({
@@ -73,33 +80,42 @@ var squareSynthRight = new Tone.Synth({
 });
 
 // Паттерны
+var bass_notes = Tonal.scale(e).map(Tonal.transpose(start_note+'2'))
+var middle_notes = Tonal.scale(e).map(Tonal.transpose(start_note+'3'))
+var color_notes = Tonal.scale(e).map(Tonal.transpose(start_note+'4'))
 
-// Басс
+
 var bassPattern1 = new Tone.Pattern(function (time, note) {
     sineSynthLeft.triggerAttackRelease(note, '1n', time);
-}, ['C#2', 'E2', 'G#2', 'B2']);
+}, bass_notes);
 
 var bassPattern2 = new Tone.Pattern(function (time, note) {
     squareSynthRight.triggerAttackRelease(note, '1n', time);
-}, ['C#2', 'E2', 'G#2', 'B2']);
+}, bass_notes);
 
-// Средние аккорды
 var middleChords1 = new Tone.Pattern(function (time, note) {
     triangleSynthLeft.triggerAttackRelease(note, '1n', time);
-}, ['E3', 'G#3', 'A3', 'B3']);
+}, middle_notes);
 
 var middleChords2 = new Tone.Pattern(function (time, note) {
     sineSynthRight.triggerAttackRelease(note, '1n', time);
-}, ['E4', 'G#4', 'A4', 'B4']);
+}, middle_notes);
 
-// Мелодия
 var color1 = new Tone.Pattern(function (time, note) {
     triangleSynthRight.triggerAttackRelease(note, '1n', time);
-}, ['G#4', 'D#4', 'F#4', 'A4', 'D#5', 'F#5', 'A5']);
+}, color_notes);
 
 var color2 = new Tone.Pattern(function (time, note) {
     squareSynthLeft.triggerAttackRelease(note, '1n', time);
-}, ['G#4', 'D#4', 'F#4', 'A4', 'D#5', 'F#5', 'A5']);
+}, color_notes);
+
+var color1 = new Tone.Pattern(function (time, note) {
+    triangleSynthRight.triggerAttackRelease(note, '1n', time);
+}, color_notes);
+
+var color2 = new Tone.Pattern(function (time, note) {
+    squareSynthLeft.triggerAttackRelease(note, '1n', time);
+}, color_notes);
 
 bassPattern1.pattern = 'random';
 bassPattern1.humanize = true;
@@ -147,11 +163,10 @@ echo2.connect(reverb2);
 
 reverb2.connect(comp);
 
-var masterVolume = new Tone.Volume(-12);
+var masterVolume = new Tone.Volume(-20);
 
 comp.connect(masterVolume);
 masterVolume.toMaster();
 
 Tone.Transport.bpm.value = 10;
 Tone.Transport.start();
-
