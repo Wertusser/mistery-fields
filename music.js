@@ -3,7 +3,7 @@ function randomChoice(arr) {
 };
 
 var e = randomChoice(['minor','major']);
-var start_note = randomChoice(['C', 'E', 'F', 'D', 'G#', 'C#', 'E#', 'F#', 'D#', 'G#']);
+var start_note = randomChoice(['C', 'E', 'F', 'D', 'G']);
 console.log(e, start_note);
 // Синтезаторы
 
