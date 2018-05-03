@@ -56,8 +56,8 @@ var middle_notes = Tonal.scale(e).map(Tonal.transpose(start_note+'3'));
 var color_notes = Tonal.scale(e).map(Tonal.transpose(start_note+'4'));
 
 // Синтезаторы
-var sampler_right = new Tone.Sampler(samples, {'baseUrl': '/Chorus/'});
-var sampler_left = new Tone.Sampler(samples, {'baseUrl': '/Chorus/'});
+var sampler_right = new Tone.Sampler(samples, {'baseUrl': './Chorus/'});
+var sampler_left = new Tone.Sampler(samples, {'baseUrl': './Chorus/'});
 
 
 var bassPattern1 = new Tone.Pattern(function (time, note) {
